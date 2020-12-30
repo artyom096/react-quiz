@@ -3,6 +3,7 @@ import { Component } from 'react/cjs/react.development';
 import Button from '../UI/Button';
 import Input from '../UI/Input/Input';
 import classes from './Auth.module.css'
+import is from 'is_js'
 
 class Auth extends Component {
 
@@ -48,8 +49,43 @@ class Auth extends Component {
 
     }
 
-    onChangeHandler(event, controlName){
-        
+    validateControl(value, validation){
+
+        if(!validation){
+            return true
+        }
+
+        let isValid = true
+
+        if(validation.required){
+            isValid = value.trim() !== '' && isValid
+        }
+
+        if(validation.minLength){
+            isValid = value.length >= validation.minLength && isValid
+        }
+
+        if(validation.email){
+            isValid = is.email(value) && isValid
+        }
+
+        return isValid
+    }
+
+
+    onChangeHandler = (event, controlName) => {
+        const formControls = {...this.state.formControls}
+        const control = {...formControls[controlName]}
+
+        control.value = event.target.value
+        control.touched = true
+        control.valid = this.validateControl(control.value, control.validation)
+
+        formControls[controlName] = control
+
+        this.setState({
+            formControls
+        })
     }
 
     renderInputs() {

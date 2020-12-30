@@ -37,7 +37,7 @@ class Quiz extends Component{
     }
 
     isQuesionFinished(){
-        return this.state.activeQuestion + 1 == this.state.quiz.length
+        return this.state.activeQuestion + 1 === this.state.quiz.length
     }
 
     onAnswerClick = answerId => {
@@ -51,7 +51,7 @@ class Quiz extends Component{
         const result = this.state.result
         const question = this.state.quiz[this.state.activeQuestion]
 
-        if(answerId == question.rightAnswerId){
+        if(answerId === question.rightAnswerId){
             if(!result[question.id]){
                 result[question.id] = 'success'
             }
