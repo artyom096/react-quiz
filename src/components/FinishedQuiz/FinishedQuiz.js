@@ -8,7 +8,6 @@ const FinishedQuiz = props => {
     if (props.results[key] === 'success') {
       total++
     }
-
     return total
   }, 0)
 
